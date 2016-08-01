@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MeetingRoomManagerModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns="http://schemas.microsoft.com/ado/2006/04/edm/ssdl">
+  <EntityType Name="BookingNew">
+    <Key>
+      <PropertyRef Name="BookingId" />
+    </Key>
+    <Property Name="BookingId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RoomNumber" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="StartDate" Type="date" Nullable="false" />
+    <Property Name="StartTime" Type="time" Precision="7" Nullable="false" />
+    <Property Name="EndTime" Type="time" Precision="7" Nullable="false" />
+    <Property Name="EmpName" Type="nvarchar" MaxLength="50" />
+    <Property Name="EmpId" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="BookingTime" Type="datetime" Nullable="false" />
+    <Property Name="Subject" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityContainer Name="MeetingRoomManagerModelStoreContainer">
+    <EntitySet Name="BookingNew" EntityType="Self.BookingNew" Schema="dbo" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+  </EntityContainer>
+</Schema>

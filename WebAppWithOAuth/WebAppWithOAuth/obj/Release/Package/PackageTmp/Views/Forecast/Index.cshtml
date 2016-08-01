@@ -1,0 +1,21 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<div class="jumbotron" style="padding-top: 0px; height: 75px">
+    <div style="padding-top: 5px">
+        <h2>Forecast Tool</h2><br /><br />
+    </div>
+</div>
+
+@if (TempData["AvailForecast"].ToString() == "true")
+{
+    @Html.Action("_Import")
+    @Html.Action("_Export")
+}
+else
+{
+    <div class="container">
+        <img src="~/Content/Images/Under-Construction1.jpg" class="img-responsive" />
+    </div>
+}
