@@ -10,8 +10,24 @@
 
 @if (TempData["AvailForecast"].ToString() == "true")
 {
-    @Html.Action("_Import")
-    @Html.Action("_Export")
+    <div class="row">
+        <div class="col-xs-6 col-md-6">
+            @Html.Action("_Import")
+            @Html.Action("_Export")
+        </div>
+        <div class="col-xs-6 col-md-6">
+            Get SOW-PO forecast easily. Just follow these steps.
+            <ul>
+                <li>Click on choose file. Select file.</li>
+                <li>Click Import button and wait till it gets reload.</li>
+                <li>Select worksheet from dropdown menu.</li>
+                <li>Set Start and End Date.</li>
+                <li>Click on Export.</li>
+            </ul>
+            <b>Done! Your file will be downloaded automatically.</b>
+        </div>
+    </div>
+
 }
 else
 {
