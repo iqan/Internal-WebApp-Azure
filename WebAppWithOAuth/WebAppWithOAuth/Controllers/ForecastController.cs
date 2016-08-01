@@ -80,27 +80,36 @@ namespace WebAppWithOAuth.Controllers
         }
 
         [HttpPost]
-        public FileResult _Export(Resource rsc)
+        public ActionResult _Export(Resource rsc)
         {
             string status = string.Empty;
+            rsc.listworksheets = list;
             try
             {
                 DataTable dt = Methods.Methods.ExcelSheetToDataTable(path, rsc.Worksheet);
-                status = Methods.Methods.ExportToExcel(dt,newPath,rsc.StartDate,rsc.EndDate);
-                if (status.Contains("success"))
+                if (dt != null)
                 {
-                    byte[] fileBytes = System.IO.File.ReadAllBytes(newPath);
-                    string fileName = "SOW-PO-Forecast.xlsx";
-                    return File(fileBytes, System.Net.Mime.MediaTypeNames.Application.Octet, fileName);
+                    status = Methods.Methods.ExportToExcel(dt, newPath, rsc.StartDate, rsc.EndDate);
+                    if (status.Contains("success"))
+                    {
+                        byte[] fileBytes = System.IO.File.ReadAllBytes(newPath);
+                        string fileName = "SOW-PO-Forecast.xlsx";
+                        return File(fileBytes, System.Net.Mime.MediaTypeNames.Application.Octet, fileName);
+                    }   
+                }
+                else
+                {
+                    TempData["ExportError"] = "Error while exporting file! Please check the imported excel sheet.";
+                    return View(rsc);
                 }
             }
             catch (Exception ex)
             {
-                TempData["ExportError"] = "Error while reading file! Err = " + ex.Message;
-                return null;
+                TempData["ExportError"] = "Error while exporting file! Err = " + ex.Message;
+                return View(rsc);
             }
-            TempData["ExportError"] = "Error while reading file! Err = " + status;
-            return null;
+            TempData["ExportError"] = "Error while exporting file! Err = " + status;
+            return View(rsc);
         }
     }
 }
