@@ -1,0 +1,33 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron" style="background-image: url(../../Content/Images/android_mountains-3840x2160.jpg); background-repeat: round;color: #fff">
+        <h1>Internal App for CTS-ASOS</h1>
+        <p class="lead">Multiple WebApps to solve some problems and reduce manual work.</p>
+        <p></p>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>Meeting Room Manager</h2>
+        <p>
+            Meeting Room is available or not?
+            Book meeting room for your meeting from your desk only.
+        </p>
+        <p><a class="btn btn-default" href="@Url.Action("Index", "MeetingRoomManager")" style="color: #fff; background-color: #3498db; border-color: #1f628d;background-image: linear-gradient(#3498db, #2980b9)">Meeting Room Manager &raquo;</a>
+        </p>
+    </div>
+    <div class="col-md-4">
+        <h2>DevOps Forecast Tool</h2>
+        <p>Get your SOW-PO forecast in a few clicks!</p>
+        <p><a class="btn btn-default" href="@Url.Action("Index", "Forecast")" style="color: #fff; background-color: #3498db; border-color: #1f628d;background-image: linear-gradient(#3498db, #2980b9)">Forecast Tool &raquo;</a>
+        </p>
+    </div>
+    <div class="col-md-4">
+        <h2>Tools</h2>
+        <p>Custom Tools made by me to reduce your efforts!</p>
+        <p><a class="btn btn-default" href="@Url.Action("Index", "Tools")" style="color: #fff; background-color: #3498db; border-color: #1f628d;background-image: linear-gradient(#3498db, #2980b9)">Tools &raquo;</a>
+        </p>
+    </div>
+</div>
