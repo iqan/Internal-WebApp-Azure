@@ -7,7 +7,6 @@ using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices;
 using WebAppWithOAuth.Models;
 
 namespace WebAppWithOAuth.Methods
@@ -94,10 +93,10 @@ namespace WebAppWithOAuth.Methods
 
                             for (DateTime index2 = index; index2 < index.AddMonths(1); index2 = index2.AddDays(1))
                             {
-                                if (index2.Month < 4)
-                                    bps = GetBillingPeriodGeneral(index2.AddYears(-1));
-                                else if (index2 == GetFinancialYearStartDate(index2))
-                                    bps = GetBillingPeriodGeneral(index2);
+                                //if (index2.Month < 4)
+                                //    bps = GetBillingPeriodGeneral(index2.AddYears(-1));
+                                //else if (index2 == GetFinancialYearStartDate(index2))
+                                //    bps = GetBillingPeriodGeneral(index2);
 
                                 if (index2 == res.EndDate.AddDays(1) && res.Extension)
                                 {
@@ -220,6 +219,12 @@ namespace WebAppWithOAuth.Methods
 
             DateTime financialYearStartDate = new DateTime(index.Year, 4, 1);
             DateTime financialYearEndDate = new DateTime(index.Year + 1, 3, 31);
+            if (index.Month < 4)
+            {
+                financialYearStartDate = new DateTime(index.Year - 1, 4, 1);
+                financialYearEndDate = new DateTime(index.Year, 3, 31);
+            }
+
 
             List<int> w = new List<int>() { 4, 5, 4, 4, 5, 4, 4, 5, 4, 4, 5, 4, 4, 5, 4, 4 };
 
@@ -270,6 +275,7 @@ namespace WebAppWithOAuth.Methods
 
         public static DateTime GetFinancialYearStartDate(DateTime index)
         {
+
             DateTime tempData = new DateTime();
 
             DateTime financialYearStartDate = new DateTime(index.Year, 4, 1);
@@ -301,6 +307,7 @@ namespace WebAppWithOAuth.Methods
             }
             return tempData;
         }
+
         #endregion
 
         #region Billing days count
