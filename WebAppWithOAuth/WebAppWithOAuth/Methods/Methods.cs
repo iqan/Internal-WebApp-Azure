@@ -172,39 +172,32 @@ namespace WebAppWithOAuth.Methods
 
         public static DataTable ExcelSheetToDataTable(string path, string sName)
         {
-            try
+            using (var pck = new OfficeOpenXml.ExcelPackage())
             {
-                using (var pck = new OfficeOpenXml.ExcelPackage())
+                using (var stream = File.OpenRead(path))
                 {
-                    using (var stream = File.OpenRead(path))
-                    {
-                        pck.Load(stream);
-                    }
-                    var ws = pck.Workbook.Worksheets.First();
-
-                    if (sName != string.Empty)
-                        ws = pck.Workbook.Worksheets[sName];
-
-                    DataTable tbl = new DataTable();
-                    foreach (var firstRowCell in ws.Cells[1, 1, 1, ws.Dimension.End.Column])
-                    {
-                        tbl.Columns.Add(firstRowCell.Text);
-                    }
-                    for (int rowNum = 2; rowNum <= ws.Dimension.End.Row; rowNum++)
-                    {
-                        var wsRow = ws.Cells[rowNum, 1, rowNum, ws.Dimension.End.Column];
-                        DataRow row = tbl.Rows.Add();
-                        foreach (var cell in wsRow)
-                        {
-                            row[cell.Start.Column - 1] = cell.Text;
-                        }
-                    }
-                    return tbl;
+                    pck.Load(stream);
                 }
-            }
-            catch
-            {
-                return null;
+                var ws = pck.Workbook.Worksheets.First();
+
+                if (sName != string.Empty)
+                    ws = pck.Workbook.Worksheets[sName];
+
+                DataTable tbl = new DataTable();
+                foreach (var firstRowCell in ws.Cells[1, 1, 1, ws.Dimension.End.Column])
+                {
+                    tbl.Columns.Add(firstRowCell.Text);
+                }
+                for (int rowNum = 2; rowNum <= ws.Dimension.End.Row; rowNum++)
+                {
+                    var wsRow = ws.Cells[rowNum, 1, rowNum, ws.Dimension.End.Column];
+                    DataRow row = tbl.Rows.Add();
+                    foreach (var cell in wsRow)
+                    {
+                        row[cell.Start.Column - 1] = cell.Text;
+                    }
+                }
+                return tbl;
             }
         }
 
